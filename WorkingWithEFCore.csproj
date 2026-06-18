@@ -1,0 +1,5 @@
+<ItemGroup>
+    <None Update="Northwind.db">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+</ItemGroup>
