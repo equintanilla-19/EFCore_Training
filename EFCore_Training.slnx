@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WorkingWithEFCore/WorkingWithEFCore.csproj" />
+  <Project Path="Northwind.EntityModels/Northwind.EntityModels.csproj" />
+</Solution>
