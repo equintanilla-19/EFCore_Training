@@ -10,15 +10,10 @@ public class NorthwindDb : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Products> Products { get; set; }
 
-    private static string connectionString = "Data Source=dbc:sqlite:C:\\Users\\emiliano.quintanilla\\source\\EFCore_Training\\Northwind";
+    private static string connectionString = @"C:\Users\emiliano.quintanilla\OneDrive - The MJ Companies\Desktop\Northwind\Northwind.db";
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        string databaseFile = "Northwind.db";
-        string path = Path.Combine(Environment.CurrentDirectory, databaseFile);
-
-        WriteLine($"Connection: {connectionString}");
-        
-        optionsBuilder.UseSqlite(connectionString);
+        optionsBuilder.UseSqlite($"Data Source={connectionString}");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,17 +21,9 @@ public class NorthwindDb : DbContext
         // Example of using Fluent API instead of attributes to
         // limit the length of a category name to 15
         modelBuilder.Entity<Category>()
-            .Property(category => category.CategoryName)
-            .IsRequired() // Not null
-            .HasMaxLength(15);
-
-        //Some SQLite-specific configuration
-        if (Database.ProviderName?.Contains("SQLite") ?? false)
-        {
-            // To "fix" the lack of decimal support in SQLite
-            modelBuilder.Entity<Products>()
-                .Property(product => product.Cost)
-                .HasConversion<double>();
-        }
+            .HasKey(c => c.CategoryId);
+        
+        modelBuilder.Entity<Products>()
+            .HasKey(p => p.ProductId);
     }
 }
